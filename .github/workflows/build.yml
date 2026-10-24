@@ -32,8 +32,28 @@ jobs:
         with:
           gradle-version: "9.7.1"
 
+
       - name: Build
-        run: gradle build
+        shell: bash
+        run: |
+          echo "目前目錄："
+          pwd
+          echo "搜尋 Gradle 專案設定檔："
+          find . -name settings.gradle -not -path './.gradle/*'
+          BUILD_DIR="$(find . -name settings.gradle -not -path './.gradle/*' -printf '%h\n' | head -n 1)"
+          if [ -z "$BUILD_DIR" ]; then
+            echo "::error::找不到 settings.gradle，請檢查專案檔案是否已上傳。"
+            exit 1
+          fi
+          cd "$BUILD_DIR"
+          echo "開始編譯目錄：$BUILD_DIR"
+          gradle build
+        env:
+          ORG_GRADLE_PROJECT_minecraft_version: ${{ matrix.minecraft }}
+          ORG_GRADLE_PROJECT_fabric_api_version: ${{ matrix.fabric_api }}
+          ORG_GRADLE_PROJECT_loader_version: "0.19.5"
+          ORG_GRADLE_PROJECT_mod_version: "0.1.0"
+
         env:
           ORG_GRADLE_PROJECT_minecraft_version: ${{ matrix.minecraft }}
           ORG_GRADLE_PROJECT_fabric_api_version: ${{ matrix.fabric_api }}
