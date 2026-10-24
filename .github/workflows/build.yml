@@ -35,23 +35,29 @@ jobs:
 
   
 
+     
       - name: Build
         shell: bash
         run: |
-          BUILD_DIR="SignPlus-Fabric-Project"
-          if [ ! -f "$BUILD_DIR/settings.gradle" ]; then
-            echo "::error::找不到 $BUILD_DIR/settings.gradle"
-            ls -la
-            ls -la "$BUILD_DIR" || true
+          echo "目前目錄："
+          pwd
+          echo "根目錄檔案："
+          ls -la
+          echo "尋找 settings.gradle："
+          find . -name settings.gradle -print
+          if [ -f "SignPlus-Fabric-Project/settings.gradle" ]; then
+            cd SignPlus-Fabric-Project
+          elif [ ! -f "settings.gradle" ]; then
+            echo "::error::找不到 Gradle 專案設定檔"
             exit 1
           fi
-          cd "$BUILD_DIR"
           gradle build
         env:
           ORG_GRADLE_PROJECT_minecraft_version: ${{ matrix.minecraft }}
           ORG_GRADLE_PROJECT_fabric_api_version: ${{ matrix.fabric_api }}
           ORG_GRADLE_PROJECT_loader_version: "0.19.5"
           ORG_GRADLE_PROJECT_mod_version: "0.1.0"
+
 
 
       - uses: actions/upload-artifact@v4
