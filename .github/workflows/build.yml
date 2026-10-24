@@ -34,6 +34,7 @@ jobs:
 
 
   
+
       - name: Build
         shell: bash
         run: |
@@ -52,17 +53,6 @@ jobs:
           ORG_GRADLE_PROJECT_loader_version: "0.19.5"
           ORG_GRADLE_PROJECT_mod_version: "0.1.0"
 
-        env:
-          ORG_GRADLE_PROJECT_minecraft_version: ${{ matrix.minecraft }}
-          ORG_GRADLE_PROJECT_fabric_api_version: ${{ matrix.fabric_api }}
-          ORG_GRADLE_PROJECT_loader_version: "0.19.5"
-          ORG_GRADLE_PROJECT_mod_version: "0.1.0"
-
-        env:
-          ORG_GRADLE_PROJECT_minecraft_version: ${{ matrix.minecraft }}
-          ORG_GRADLE_PROJECT_fabric_api_version: ${{ matrix.fabric_api }}
-          ORG_GRADLE_PROJECT_loader_version: "0.19.5"
-          ORG_GRADLE_PROJECT_mod_version: "0.1.0"
 
       - uses: actions/upload-artifact@v4
         with:
