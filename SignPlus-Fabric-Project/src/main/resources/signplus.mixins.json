@@ -1,7 +1,0 @@
-{
-  "required": true,
-  "package": "tw.signplus",
-  "compatibilityLevel": "JAVA_25",
-  "client": ["SignClickMixin"],
-  "injectors": { "defaultRequire": 1 }
-}
